@@ -5,6 +5,8 @@
 Import Windows 8BitDo macro files (`.ini`) into the macOS app
 **8BitDo Ultimate Software V2**.
 
+![MacroPort](Resources/screenshot.png)
+
 ## The problem
 
 The Windows version of the 8BitDo software reads macros from a folder. You put
@@ -159,6 +161,7 @@ Scripts/
   make-icon.swift     draws Resources/AppIcon.icns
 Resources/
   AppIcon.icns        the app icon, which build.sh copies into the bundle
+  screenshot.png      the window, for this README
 ```
 
 To change the icon, edit `Scripts/make-icon.swift`, then run
