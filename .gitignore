@@ -1,0 +1,13 @@
+# Swift Package Manager
+.build/
+.swiftpm/
+Package.resolved
+
+# The app bundle that build.sh makes
+build/
+
+# Intermediate files from Scripts/make-icon.swift
+Resources/AppIcon.iconset/
+
+# macOS
+.DS_Store
