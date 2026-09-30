@@ -36,7 +36,7 @@ Tested with macOS 26.6, Swift 6.4, 8BitDo Ultimate Software V2 1.0.17, and an
 ## Build
 
 ```
-git clone https://github.com/<user>/MacroPort.git
+git clone https://github.com/burghr/MacroPort.git
 cd MacroPort
 ./build.sh          # build build/MacroPort.app
 ./build.sh --run    # build it, then open it
