@@ -76,11 +76,22 @@ struct MacroFile {
     }
 }
 
-/// The button names. Three bits are confirmed against the Windows UI. The
-/// other bits are unknown, so the code shows them as hex. The mask itself is
-/// copied without change, so an unknown name never affects an import.
+/// The button names, for an 8BitDo Pro 3.
+///
+/// All sixteen bits were read from a macro that presses each button once, in a
+/// known order, recorded in the 8BitDo app. Two older macros confirm the map:
+/// one named "LeftRight" decodes to Left then Right, and one built on Windows
+/// decodes to the same buttons that the Windows UI shows for it.
+///
+/// A bit outside this map shows as hex. The mask itself is copied without
+/// change, so a missing name never affects an import.
 enum Buttons {
-    static let names: [UInt16: String] = [0x0400: "L", 0x1000: "B", 0x2000: "A"]
+    static let names: [UInt16: String] = [
+        0x0001: "Plus",  0x0002: "LS",   0x0004: "RS",   0x0008: "Minus",
+        0x0010: "X",     0x0020: "Y",    0x0040: "Right", 0x0080: "Left",
+        0x0100: "Down",  0x0200: "Up",   0x0400: "L",    0x0800: "R",
+        0x1000: "B",     0x2000: "A",    0x4000: "ZL",   0x8000: "ZR",
+    ]
 
     static func describe(_ mask: UInt16) -> String {
         if mask == 0 { return "release" }

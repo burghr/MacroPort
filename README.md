@@ -131,22 +131,42 @@ under a key such as `Pro3Macro_0`, where `0` is the profile number. The value is
 UTF-8 JSON in a binary plist data field. A macro name is 32 bytes of UTF-16, big
 endian, zero padded.
 
+The button bitmask for an 8BitDo Pro 3:
+
+| Bit | Mask | Button | Bit | Mask | Button |
+|---|---|---|---|---|---|
+| 0 | `0x0001` | Plus | 8 | `0x0100` | Down |
+| 1 | `0x0002` | LS click | 9 | `0x0200` | Up |
+| 2 | `0x0004` | RS click | 10 | `0x0400` | L |
+| 3 | `0x0008` | Minus | 11 | `0x0800` | R |
+| 4 | `0x0010` | X | 12 | `0x1000` | B |
+| 5 | `0x0020` | Y | 13 | `0x2000` | A |
+| 6 | `0x0040` | Right | 14 | `0x4000` | ZL |
+| 7 | `0x0080` | Left | 15 | `0x8000` | ZR |
+
+All sixteen bits come from a macro that presses each button once, in a known
+order, recorded in the 8BitDo app. Two older macros confirm the map. One named
+"LeftRight" decodes to Left then Right. One built on Windows decodes to the same
+buttons that the Windows UI shows for it. A bit outside this map shows as hex.
+
 MacroPort writes only the macro list. It does not touch `Pro3CacheManager_0`,
 which holds the copy that matches the controller. The 8BitDo app rebuilds that
 copy when you press "Load to Profile".
 
 ## What is not known yet
 
-- **Most button bits.** Three are confirmed against the Windows UI: `0x0400` is
-  L, `0x1000` is B, `0x2000` is A. The app shows any other bit as hex. This
-  affects the printed name only, because MacroPort copies the mask without
-  change.
-- **Other controllers.** The format was read from files for the 8BitDo Pro 3.
-  The profile list comes from the preferences file, so a key for another
-  controller appears once that controller has a macro. The step array of that
-  controller may use other fields.
+- **Other controllers.** The format was read from files for the 8BitDo Pro 3,
+  and the button map above is the map of that controller. The profile list
+  comes from the preferences file, so a key for another controller appears once
+  that controller has a macro. The step array and the button bits of that
+  controller may differ.
+- **Two header fields of the macOS record.** The app keeps `keyMap`, `maxSteps`,
+  and `offset` in its own cache, and it fills them when you press "Load to
+  Profile". MacroPort leaves them at 0, which the app accepts.
 
-A pull request that confirms more bits, or another controller, is welcome.
+A pull request that adds another controller is welcome. To map its buttons,
+record a macro that presses each button once in a known order, then read the
+preferences file.
 
 ## Layout
 
